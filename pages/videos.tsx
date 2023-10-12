@@ -1,214 +1,228 @@
-import React, { useState, useEffect, useContext } from 'react';
-import Image from 'next/image';
-import { FiSearch } from 'react-icons/fi';
-import Navbar from '@/components/shared/Navbar';
-import axios from 'axios';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { GlobalContext } from '../context/GlobalContext';
-import Link from 'next/link';
+import React, { useState, useEffect, useContext } from 'react'
+import Image from 'next/image'
+import Logo2 from '../public/assets/video-repo/logo-2.png'
+import { FiSearch } from 'react-icons/fi'
+import Navbar from '@/components/shared/Navbar'
+// import { Spinner } from '../../components/shared/Loader'
+// import VideoCard from '../../components/shared/VideoCard'
+import Link from 'next/link'
+import axios from 'axios'
+import { GlobalContext } from '../context/GlobalContext'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 interface Video {
-  id: number;
-  username: string;
-  src: string;
-  created_date: string;
+  id: number
+  username: string
+  src: string
+  created_date: string
 }
 
 function Videos() {
-  const { user } = useContext(GlobalContext);
-  const displayName: string = user?.displayName || 'user13';
+  const { user } = useContext(GlobalContext)
+  const displayName: string = user?.displayName || 'user13'
 
-  const [videos, setVideos] = useState<Video[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [videos, setVideos] = useState<Video[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const response = await axios.get(`https://www.cofucan.tech/srce/api/recording/user/${displayName}`);
+        const response = await axios.get(
+          `https://www.cofucan.tech/srce/api/recording/user/${displayName}`,
+        )
         const formattedVideos: Video[] = response.data.map((video: any) => ({
           id: video.id,
           username: video.title,
-          src: video.original_location, // Update this according to your API response
+          src: video.original_location, 
           created_date: formatDate(video.created_date),
-        }));
-        setVideos(formattedVideos);
-        setLoading(false);
+        }))
+        setVideos(formattedVideos)
+        setLoading(false)
       } catch (error) {
-        console.error('Error fetching videos:', error);
-        setLoading(false);
+        console.error('Error fetching videos:', error)
+        setLoading(false)
       }
-    };
+    }
 
-    fetchVideos();
-  }, [user]);
+    fetchVideos()
+  }, [user])
 
   const formatDate = (dateString: string): string => {
-    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedDate = new Date(dateString).toLocaleDateString(undefined, options);
-    return formattedDate.toUpperCase();
-  };
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }
+    const formattedDate = new Date(dateString).toLocaleDateString(
+      undefined,
+      options,
+    )
+    return formattedDate.toUpperCase()
+  }
 
-
-/*   const src =
+  const src =
     'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4'
 
   const details = [
     {
       src: 'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4',
-      title: 'How to Create Facebook Ad Listing',
+      title: 'How to Create Facebook Ad Listing 1',
+      date: '  SEPTEMBER 20, 2023',
+    },
+    {
+      src: 'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4',
+      title: 'How to Create Facebook Ad Listing 2',
+      date: '  SEPTEMBER 21, 2023',
+    },
+    {
+      src: 'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4',
+      title: 'How to Create Facebook Ad Listing 3',
       date: '  SEPTEMBER 22, 2023',
     },
     {
       src: 'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4',
-      title: 'How to Create Facebook Ad Listing',
-      date: '  SEPTEMBER 22, 2023',
+      title: 'How to Create Facebook Ad Listing 4',
+      date: '  SEPTEMBER 23, 2023',
     },
     {
       src: 'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4',
-      title: 'How to Create Facebook Ad Listing',
-      date: '  SEPTEMBER 22, 2023',
+      title: 'How to Create Facebook Ad Listing 4',
+      date: '  SEPTEMBER 24, 2023',
     },
     {
       src: 'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4',
-      title: 'How to Create Facebook Ad Listing',
-      date: '  SEPTEMBER 22, 2023',
+      title: 'How to Create Facebook Ad Listing 6',
+      date: '  SEPTEMBER 25, 2023',
     },
     {
       src: 'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4',
-      title: 'How to Create Facebook Ad Listing',
-      date: '  SEPTEMBER 22, 2023',
+      title: 'How to Create Facebook Ad Listing 7',
+      date: '  SEPTEMBER 26, 2023',
     },
-    {
-      src: 'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4',
-      title: 'How to Create Facebook Ad Listing',
-      date: '  SEPTEMBER 22, 2023',
-    },
-    {
-      src: 'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4',
-      title: 'How to Create Facebook Ad Listing',
-      date: '  SEPTEMBER 22, 2023',
-    },
-  ] */
+  ]
   return (
- 
-  <div>
-      <div className="w-full h-screen overflow-y-hidden">
-        <div className="w-full h-full mb-8 flex flex-col   justify-between">
-          {/* <div className="w-full px-[4em] py-9 flex items-center justify-between">
-            <Image src={Logo2} alt="" className="w-[100px] " />
-            <button className="px-3 flex items-center justify-center gap-2"></button>
-          </div> */}
+    <div>
+      <div className="w-full min-h-screen overflow-y-hidden">
+        <div className="w-full min-h-full flex flex-col justify-between">
           <Navbar />
-          <div className="w-full px-[6em] py-5 flex items-start       justify-between lg:flex-row md:flex-col sm:flex-col">
-            <div className="w-auto flex flex-col items-start justify-start">
-              <h1 className="text-black-600   lg:text-[2em]  sm:text-sm font-bold mb-3 ">
+          <div className="w-full px-4 sm:px-8 lg:px-20 py-0 flex flex-col xs:flex-col sm:flex-row items-center justify-between mb-5">
+            <div className="w-full lg:w-auto flex flex-col">
+              <div className="HelloJohnMark text-neutral-900 lg:text-[32px] font-bold font-['Sora'] md:text-[28px] sm:text-[24px] xs:text-[20px]">
                 Hello, John Mark
-              </h1>
-              <p className="text-white-400 text-[12px] color-black-600 ">
+              </div>
+              <div className="HereAreYourRecordedVideos text-neutral-900 text-opacity-70 lg:text-[28px] font-bold font-['Sora'] md:text-[24px] sm:text-[20px] xs:text-[16x] font-normal font-['Work Sans']">
                 Here are your recorded videos
-              </p>
+              </div>
             </div>
-            <div className="w-full max-w-[250px] bg-white-300 px-4 flex items-center justify-start border rounded-lg">
+            <div className="SearchBar lg:w-[30rem] lg:h-[48px] 
+            md:w-[30rem] md:h-[48px] xs:w-[90vw] xs:h-[48px] bg-gray-300 px-4 flex items-center justify-start border rounded-lg">
               <FiSearch size={15} color="#ccc" />
               <input
                 type="text"
-                className="w-full py-3 bg-transparent outline-none border-none px-3 text-[10px] text-white-400 font-ppReg"
+                className="w-full py-3 bg-transparent outline-none border-none px-3 text-[14px] text-white font-ppReg placeholder-white"
                 placeholder="Search for a video"
               />
             </div>
           </div>
-        </div>
-      </div>
-        <div
+
+          <div
+            className="Timeline text-neutral-900 text-opacity-80 text-lg font-medium font-['Work Sans'] px-8 lg:px-20 py-0"
             style={{
               borderTop: '1px solid lightgray',
-              paddingTop: '50px',
             }}
-            className="  w-full px-[6em] min-h-[15em] mt-9 flex   justify-start flex-col gap-4 mb-5 overflow-y-scroll"
-          > 
-            <p className="text-dark-200 font-ppReg text-[12px] ">
-              Recent files </p>
-    <div className="w-full h-screen overflow-y-hidden">
-      <div className="w-full h-full mb-8 flex flex-col justify-between">
-        <Navbar />
-        <div className="w-full px-[6em] py-5 flex items-start justify-between lg:flex-row md:flex-col sm:flex-col">
-          <div className="w-auto flex flex-col items-start justify-start">
-            <h1 className="text-black-600 lg:text-[2em] sm:text-sm font-bold mb-3">
-              Hello, John Mark
-            </h1>
-            <p className="text-white-400 text-[12px] color-black-600 ">
-              Here are your recorded videos
- 
-            </p>
+          >
+            Recent files
           </div>
-          <div className="w-full max-w-[250px] bg-white-300 px-4 flex items-center justify-start border rounded-lg">
-            <FiSearch size={15} color="#ccc" />
-            <input
-              type="text"
-              className="w-full py-3 bg-transparent outline-none border-none px-3 text-[10px] text-white-400 font-ppReg"
-              placeholder="Search for a video"
-            />
-          </div>
-        </div>
-        <br />
-        <div className="w-full px-[6em] min-h-[15em] mt-9 flex justify-start flex-col gap-4 mb-5 overflow-y-scroll">
-          <p className="text-dark-200 font-ppReg text-[12px] ">Recent files</p>
-          <div className="w-full flex items-center justify-start flex-wrap gap-7">
-            {videos.map((item, index) => (
+
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+              margin: '0 auto',
+              overflowY: 'scroll',
+              maxHeight: '100vh',
+            }}
+          >
+            {details.length === 0 ? (
+              <div className="NoRecentVideosMessage text-xl text-neutral-900 font-medium">
+               You have no recent videos
+              </div>
+            ) : (
+              details.map((item, index) => (
                 <Link key={index} href={`/videos/${item?.id}`} passHref>
-              <div
-                key={index}
-                className="w-full p-4 max-w-[500px] max-h-[250px] h-full border-solid border-white-300 border-[2px] rounded-[10px] "
-              >
-                <video
-                  controls
-                  className="w-full h-[150px] rounded-[10px] bg-white-300 object-cover"
+                  <div
+                  className="WebCard px-1 pt-4 pb-6 bg-neutral-50 bg-opacity-50 rounded-3xl border border-gray-400 border-opacity-60 flex-col justify-center items-center gap-0 inline-flex lg:w-[557px] lg:h-[322px]  md:w-[557px] md:h-[322px]  sm:w-[557px] sm:h-[322px] ss:w-[557px] ss:h-[322px] xs:w-[340px] xs:h-[280px]"
+                  style={{
+                    margin: '1rem',
+                  }}
                 >
-                  <source src={item.src} type="video/mp4" />
-                </video>
-                <div className="flex justify-between mt-3">
-                  <p className="text-dark-100 font-ppSB text-[15px] mt-1">
-                    {item.username}
-                  </p>
-                  <div className="flex">
-                    <Image
-                      src="/assets/video-repo/link.png"
-                      alt="stuff"
-                      width={20}
-                      height={20}
-                    />
-                    <Image
-                      src="/assets/video-repo/more.png"
-                      alt="stuff"
-                      width={20}
-                      height={20}
-                    />
+                  <div
+                    className="VideoFrame  relative rounded-xl border border-gray-200"
+                    style={{
+                      margin: '0.5rem',
+                      position: 'relative', 
+                    }}
+                  >
+                    <video
+                      controls
+                      className="lg:w-[525px] lg:h-[220px]
+                      md:w-[525px] md:h-[220px] sm:w-[525px] sm:h-[220px] ss:w-[525px] ss:h-[220px]  rounded-md bg-gray-300 object-cover"
+                    >
+                      <source src={item.src} type="video/mp4" />
+                    </video>
+                    <div className="VideoDuration px-4 py-1 absolute bottom-9 right-3 bg-gray-200 rounded justify-end items-end gap-2 inline-flex">
+                      <div className="34 text-slate-950 text-sm font-medium font-['Work Sans']">
+                        00:34
+                      </div>
+                    </div>
+                  </div>
+                  <div className="Details self-stretch justify-between items-start inline-flex">
+                    <div className="TitleDate grow shrink basis-0 flex-col justify-center items-start gap-0 inline-flex px-4">
+                      <div
+                        className="Title text-neutral-900 text-xl font-medium font-['Work Sans'] capitalize"
+                        style={{ fontSize: '1rem' }}
+                      >
+                        {item.title}
+                      </div>
+                      <div className="Date text-gray-400 text-base font-normal font-['Work Sans'] uppercase">
+                        {item?.date}
+                      </div>
+                    </div>
+                    <div className="Icons justify-start items-start gap-6 flex">
+                      <Image
+                        src="/assets/video-repo/link.png"
+                        alt="stuff"
+                        width={20}
+                        height={20}
+                      />
+                      <Image
+                        src="/assets/video-repo/more.png"
+                        alt="stuff"
+                        width={20}
+                        height={20}
+                      />
+                    </div>
                   </div>
                 </div>
-                <p className="text-white-400 opacity-[.5] font-ppReg text-[11px]">
-                  {item?.created_date}
-                </p>
-              </div>
-             
-          </Link>
-            ))}
+                </Link>
+              ))
+            )}
           </div>
         </div>
-      </div>
-      <ToastContainer 
-          position="top-center" // Position the toast container at the bottom-center
-          autoClose={1500} // Close after 3 seconds (adjust as needed)
+        <ToastContainer
+          position="top-center"
+          autoClose={1500}
           style={{
-         width: 'fit-content', // Adjust the width as needed
-         textAlign: 'center', // Center-align the container's content
-         }}
-       />
+            width: 'fit-content',
+            textAlign: 'center',
+          }}
+        />
+      </div>
     </div>
-    </div>
-     </div>
   );
- 
 }
 
-export default Videos
+export default Videos;
