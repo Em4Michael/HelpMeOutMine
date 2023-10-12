@@ -107,14 +107,15 @@ function Videos() {
         <div className="w-full min-h-full flex flex-col justify-between">
           <Navbar />
           <div className="w-full px-4 sm:px-8 lg:px-20 py-0 flex flex-col xs:flex-col sm:flex-row items-center justify-between mb-5">
-            <div className="w-full lg:w-auto flex flex-col">
-              <div className="HelloJohnMark text-neutral-900 lg:text-[32px] font-bold font-['Sora'] md:text-[28px] sm:text-[24px] xs:text-[20px]">
-                Hello, John Mark
-              </div>
-              <div className="HereAreYourRecordedVideos text-neutral-900 text-opacity-70 lg:text-[28px] font-bold font-['Sora'] md:text-[24px] sm:text-[20px] xs:text-[16x] font-normal font-['Work Sans']">
-                Here are your recorded videos
-              </div>
-            </div>
+          <div className="w-full lg:w-auto flex flex-col">
+  <div className="HelloJohnMark text-neutral-900 lg:text-[32px] font-bold font-['Sora'] md:text-[28px] sm:text-[24px] xs:text-[20px] hidden ss:block">
+    Hello, John Mark
+  </div>
+  <div className="HereAreYourRecordedVideos text-neutral-900 text-opacity-70 lg:text-[28px] font-bold font-['Sora'] md:text-[24px] sm:text-[20px] xs:text-[16x] font-normal font-['Work Sans'] hidden ss:block">
+    Here are your recorded videos
+  </div>
+</div>
+
             <div className="SearchBar w-[90vw] lg:w-[30rem] lg:h-[48px] 
             md:w-[30rem] md:h-[48px] xs:w-[90vw] xs:h-[48px] bg-gray-300 px-4 flex items-center justify-start border rounded-lg">
               <FiSearch size={15} color="#ccc" />
