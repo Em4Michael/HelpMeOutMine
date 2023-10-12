@@ -10,6 +10,7 @@ import axios from 'axios'
 import { GlobalContext } from '../context/GlobalContext'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Spinner from '../components/Spinner/Spinner'
 
 interface Video {
   id: number
@@ -136,7 +137,9 @@ function Videos() {
           >
             Recent files
           </div>
-
+          {loading ? (
+        <Spinner />
+      ) : (
           <div
             className="lg:overflow-y-scroll  ss:overflow-y-scroll xs:overflow-y-hidden sm:overflow-y-scroll lg:max-h-screen md:max-h-screen ss:max-h-screen sm:max-h-screen xs:h-full"
             style={{
@@ -212,6 +215,7 @@ function Videos() {
               ))
             )}
           </div>
+          )}
         </div>
         <ToastContainer
           position="top-center"
