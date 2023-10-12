@@ -152,7 +152,7 @@ function Videos() {
               </div>
             ) : (
               details.map((item, index) => (
-                <Link key={index} href={`/videos/${item?.id}`} passHref>
+                <Link key={index} href= "#" passHref>
                   <div
                   className="WebCard px-1 pt-4 pb-6 bg-neutral-50 bg-opacity-50 rounded-3xl border border-gray-400 border-opacity-60 flex-col justify-center items-center gap-0 inline-flex lg:w-[557px] lg:h-[322px]  md:w-[557px] md:h-[322px]  sm:w-[557px] sm:h-[322px] ss:w-[557px] ss:h-[322px] xs:w-[340px] xs:h-[280px]"
                   style={{
