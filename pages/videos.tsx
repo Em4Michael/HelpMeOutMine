@@ -116,8 +116,8 @@ function Videos() {
   </div>
 </div>
 
-            <div className="SearchBar w-[90vw] lg:w-[30rem] lg:h-[48px] 
-            md:w-[30rem] md:h-[48px] xs:w-[90vw] xs:h-[48px] bg-gray-300 px-4 flex items-center justify-start border rounded-lg">
+<div className="SearchBar w-[90vw] h-[30px] lg:w-[30rem] lg:h-[48px] md:w-[30rem] md:h-[48px]  ss:w-[30rem] ss:h-[48px] xs:w-[90vw] xs:h-[30px] bg-gray-300 px-4 flex items-center justify-start border rounded-lg">
+
               <FiSearch size={15} color="#ccc" />
               <input
                 type="text"
